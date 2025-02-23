@@ -5,10 +5,10 @@ import Logo from '@/assets/images/logo-white.png';
 import Link from 'next/link';
 import profileDefault from '@/assets/images/profile.png';
 import { FaGoogle, FaFacebook } from 'react-icons/fa';
-// import google icon
-import SocialIcon from './SocialIcon';
+
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
 
   /* Toggle The Mobile Menu   */
@@ -16,13 +16,15 @@ const Navbar = () => {
     setIsMobileMenuOpen((prevState) => !prevState)
     console.log(isMobileMenuOpen)
   }
+
+  const handleProfileDropdownToggle = () => {
+    setIsProfileDropdownOpen((prevState) => !prevState)
+  }
   return (
-    <nav className="bg-blue-900 border-b border-blue-500">
+    <nav className="bg-blue-700 border-b border-blue-500">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-20 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
-
-            {/* Mobile menu button */}
             <button
               onClick={handleMobileMenuToggle}
               type="button"
@@ -53,9 +55,7 @@ const Navbar = () => {
           <div
             className="flex flex-1 items-center justify-center md:items-stretch md:justify-start"
           >
-
-            {/* Logo and title */}
-            <Link className="flex flex-shrink-0 items-center" href="/index.html">
+            <a className="flex flex-shrink-0 items-center" href="/index.html">
               <Image
                 className="h-10 w-auto"
                 src={Logo}
@@ -65,21 +65,19 @@ const Navbar = () => {
               <span className="hidden md:block text-white text-2xl font-bold ml-2"
               >PropertyPulse</span
               >
-            </Link>
-
+            </a>
             <div className="hidden md:ml-6 md:block">
               <div className="flex space-x-2">
-                {/* Homepage Link */}
                 <Link
                   href="/"
                   className="text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                >Home</Link>
-
+                >Home</Link
+                >
                 <Link
                   href="/properties"
                   className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                >Properties</Link
-                >
+                >Properties</Link>
+
                 <Link
                   href="/add-property"
                   className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
@@ -89,47 +87,29 @@ const Navbar = () => {
             </div>
           </div>
 
-
+          {/* <!-- Right Side Menu (Logged Out) --> */}
           <div className="hidden md:block md:ml-6">
             <div className="flex items-center">
-              <div className="flex space-x-2">
-                <button
-                  className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                >
-                  <SocialIcon 
-                    Icon={FaGoogle} 
-                    bgColor="bg-red-500" 
-                    textColor="text-white" 
-                    size="24px"
-                    padding="p-1.5"
-                  />
-                </button>
-
-                <button
-                  className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                >
-                  <SocialIcon 
-                    Icon={FaFacebook} 
-                    bgColor="bg-blue-600" 
-                    textColor="text-white" 
-                    size="24px"
-                    padding="p-1.5"
-                  />
-                </button>
-              </div>
+              <button
+                className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+              >
+                {/* <i className="fa-brands fa-google text-white mr-2"></i> */}
+                <FaGoogle />
+                <span>Login or Register</span>
+              </button>
             </div>
           </div>
 
-
+          {/* <!-- Right Side Menu (Logged In) --> */}
           <div
             className="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0"
           >
-            <a href="messages.html" className="relative group">
+            <Link href="/messages" className="relative group">
               <button
                 type="button"
                 className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
               >
-                <span className="absolute -inset-0.5"></span>
+                <span className="absolute -inset-1.5"></span>
                 <span className="sr-only">View notifications</span>
                 <svg
                   className="h-6 w-6"
@@ -150,13 +130,17 @@ const Navbar = () => {
                 className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"
               >
                 2
-
+                {/* <!-- Replace with the actual number of notifications --> */}
               </span>
-            </a>
+            </Link>
+            {/* <!-- Profile dropdown button --> */}
+
 
             <div className="relative ml-3">
+
               <div>
                 <button
+                  onClick={handleProfileDropdownToggle}
                   type="button"
                   className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   id="user-menu-button"
@@ -173,101 +157,82 @@ const Navbar = () => {
                 </button>
               </div>
 
-
-              <div
-                id="user-menu"
-                className="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="user-menu-button"
-                tabIndex="-1"
-              >
-                <a
-                  href="/profile.html"
-                  className="block px-4 py-2 text-sm text-gray-700"
-                  role="menuitem"
-                  tabIndex="-1"
-                  id="user-menu-item-0"
-                >Your Profile</a
-                >
-                <a
-                  href="/saved-properties.html"
-                  className="block px-4 py-2 text-sm text-gray-700"
-                  role="menuitem"
-                  tabIndex="-1"
-                  id="user-menu-item-2"
-                >Saved Properties</a
-                >
-                <button
-                  className="block px-4 py-2 text-sm text-gray-700"
-                  role="menuitem"
-                  tabIndex="-1"
-                  id="user-menu-item-2"
-                >
-                  Sign Out
-                </button>
-              </div>
+              {/* <!-- Profile dropdown --> */}
+              {true && (
+                 <div
+                 id="user-menu"
+                 className=" absolute right-0 z-10 mt-2 w-40 origin-to-right  rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                 role="menu"
+                 aria-orientation="vertical"
+                 aria-labelledby="user-menu-button"
+                 tabindex="-1"
+               >
+                 <Link
+                   href="/profile"
+                   className="block px-4 py-2 text-sm text-gray-700"
+                   role="menuitem"
+                   tabindex="-1"
+                   id="user-menu-item-0"
+                 >Your Profile</Link
+                 >
+                 <Link
+                   href="/saved-properties"
+                   className="block px-4 py-2 text-sm text-gray-700"
+                   role="menuitem"
+                   tabindex="-1"
+                   id="user-menu-item-2"
+                 >Saved Properties</Link
+                 >
+                 <button
+      
+                   className="block px-4 py-2 text-sm text-gray-700"
+                   role="menuitem"
+                   tabindex="-1"
+                   id="user-menu-item-2"
+                 >
+                   Sign Out
+                 </button>
+               </div>
+              )}
+             
             </div>
+
+
           </div>
         </div>
       </div>
 
+      {/* <!-- Mobile menu, show/hide based on menu state. --> */}
+      {isMobileMenuOpen && (
 
-      {/* Mobile menu show/hide based on menu state  */}
-
-      <div
-        id="mobile-menu"
-        className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden`}
-      >
-        <div className="space-y-1 px-2 pb-3 pt-2">
-          <Link
-            href="/"
-            className="text-white hover:bg-gray-700 block rounded-md px-3 py-2 text-base font-medium"
-          >
-            Home
-          </Link>
-          <Link
-            href="/properties"
-            className="text-white hover:bg-gray-700 block rounded-md px-3 py-2 text-base font-medium"
-          >
-            Properties
-          </Link>
-          <Link
-            href="/add-property"
-            className="text-white hover:bg-gray-700 block rounded-md px-3 py-2 text-base font-medium"
-          >
-            Add Property
-          </Link>
-
-          <div className="px-3 py-3">
-            <div className="flex space-x-2">
-              <button
-                className="flex-1 flex items-center justify-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-              >
-                <SocialIcon 
-                  Icon={FaGoogle} 
-                  bgColor="bg-red-500" 
-                  textColor="text-white" 
-                  size="24px"
-                  padding="p-1.5"
-                />
-              </button>
-
-              <button
-                className="flex-1 flex items-center justify-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-              >
-                <SocialIcon 
-                  Icon={FaFacebook} 
-                  bgColor="bg-blue-600" 
-                  textColor="text-white" 
-                  size="24px"
-                  padding="p-1.5"
-                />
-              </button>
-            </div>
+        <div className id="mobile-menu">
+          <div className="space-y-1 px-2 pb-3 pt-2">
+            <Link
+              href="/"
+              className="bg-black text-white block rounded-md px-3 py-2 text-base font-medium"
+            >Home</Link
+            >
+            <Link
+              href="/properties"
+              className="text-white block rounded-md px-3 py-2 text-base font-medium"
+            >Properties</Link
+            >
+            <Link
+              href="/add-property"
+              className="text-white block rounded-md px-3 py-2 text-base font-medium"
+            >Add Property</Link
+            >
+            <button
+              className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 my-5"
+            >
+              {/* <i className="fa-brands fa-google mr-2"></i>
+             */}
+              <FaFacebook />
+              <span>Login or Register</span>
+            </button>
           </div>
         </div>
-      </div>
+      )}
     </nav>
   )
 }

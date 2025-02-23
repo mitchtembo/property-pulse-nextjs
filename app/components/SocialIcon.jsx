@@ -9,10 +9,10 @@ const SocialIcon = ({
 }) => {
     return (
         <div
-            className={`${bgColor} ${padding} rounded-full flex items-center justify-center`}
+            classNameName={`${bgColor} ${padding} rounded-full flex items-center justify-center`}
             style={{ width: size, height: size }}
         >
-            <Icon className={`${textColor} w-full h-full`} />
+            <Icon classNameName={`${textColor} w-full h-full`} />
         </div>
     )
 }
