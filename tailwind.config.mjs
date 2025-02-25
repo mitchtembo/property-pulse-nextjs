@@ -1,5 +1,3 @@
-import { Poppins, Roboto_Condensed } from 'next/font/google';
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -10,11 +8,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', Roboto_Condensed, 'sans-serif'],
+        poppins: ['var(--font-poppins)'],
+        roboto: ['var(--font-roboto-condensed)'],
       },
       gridTemplateColumns: {
         '70/30': '70% 28%',
-        
       }
     },
   },

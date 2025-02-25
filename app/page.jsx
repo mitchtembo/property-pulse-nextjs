@@ -1,9 +1,12 @@
 import Link  from "next/link";
+import Hero from "./components/Hero";
+import InfoBoxes from "./components/InfoBoxes";
+
 const Homepage = () => {
   return (
-    <div classNameName="text-2xl bg-red">
-      <h1 classNameName='text-2xl text-center'>Wlcome to Property Pulse</h1>
-      <Link href='/properties' classNameName='text-2xl text-center'>View Properties</Link><br />
+    <div>
+      <Hero />
+      <InfoBoxes />
     </div>
   )
 }
